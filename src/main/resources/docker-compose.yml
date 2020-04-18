@@ -1,0 +1,26 @@
+version: '3.6'
+
+services:
+
+  couchdb:
+    image: couchdb:latest
+    container_name: couchdb
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=password
+      - ERL_FLAGS=-setcookie "brumbrum" #for nodes
+    ports:
+      - 5984:5984 #standard
+      - 4369:4369 #erlang
+      - 9100:9100
+    networks:
+      - couchdb_network
+    volumes:
+      - couchdb:/data/couchdb
+
+networks:
+  couchdb_network:
+    driver: bridge
+
+volumes:
+  couchdb:
